@@ -1,3 +1,3 @@
 
-module.exports = (operate, init) =>
-	(...operands) => operands.reduce(operate, init);
+module.exports = (operate, identity) =>
+	(...operands) => operands.reduce(operate, identity);
