@@ -2,23 +2,20 @@
 ((module) => {
 	'use strict';
 
-	var cumulate = (operate, identity) =>
-		(...operands) => operands.reduce(operate, identity);
-
-	var search = (check, identity, fres, ires) => (...operands) => {
+	var cumulate = (operate, identity, stop) => (...operands) => {
+		var result = identity;
 		for (let element of operands) {
-			let res = ires(element);
-			if (check(res)) {
-				return fres(pres);
+			result = operate(result, element);
+			if (stop(result)) {
+				break;
 			}
 		}
+		return result;
 	};
 
-	const DEFAULT = (x) => x;
+	const DEFAULT = () => false;
 
-	cumulate.search = (check, identity, fres, ires) =>
-		search(check, identity, fres || DEFAULT, ires || DEFAULT);
-
-	module.exports = cumulate;
+	module.exports = (operate, identity, stop) =>
+		cumulate(operate, identity, stop || DEFAULT);
 
 })(module);
