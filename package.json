@@ -1,0 +1,36 @@
+
+{
+	"name": "x-vector",
+	"description": "Extensible mathematical vector-space utilities",
+	"version": "0.0.0",
+	"author": "Hoàng Văn Khải <hvksmr1996@gmail.com>",
+	"contributors": [
+		"Hoàng Văn Khải <hvksmr1996@gmail.com>"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ksxnodemodules/x-vector.git"
+	},
+	"engines": {
+		"node": ">=5.0.0"
+	},
+	"dependencies": {
+		"simple-function-utils": ">=2.1.2 <3.0.0"
+	},
+	"main": "index.js",
+	"keywords": [
+		"vector",
+		"math-vector",
+		"multi-dimensional-vector",
+		"vector-space",
+		"extensible-vector"
+	],
+	"bugs": {
+		"url": "https://github.com/ksxnodemodules/x-vector/issues"
+	},
+	"homepage": "https://github.com/ksxnodemodules/x-vector#readme",
+	"scripts": {
+		"test": "node --es-staging ./test/index.js"
+	}
+}
