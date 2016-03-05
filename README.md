@@ -22,8 +22,9 @@ class Float64Vector extends Float64Array {
 var vspace = new xvec.VectorSpace(Float64Vector, xvec.NUMBER_ARRAY_OPERATIONS);
 var a = new vspace.Vector(12, 34, 56);
 var b = new vspace.Vector(13, 24, 35);
+var c = new vspace.Vector(14, 15, 16);
 console.log({
-	'a + b': vspace.add(a, b),
+	'a + b + c': vspace.add(a, b, c),
 	'a * b': vspace.vectorProduct(a, b),
 	'12 * a': vspace.scalarProduct(a, 12)
 });
