@@ -1,14 +1,13 @@
 
 ((module) => {
 	'use strict';
-
-	var cumulate = require('./cumulate.js');
 	var freeze = Object.freeze;
 
-	var createOperationSystem = (plus, times, zero, one) => freeze({
-		sum: cumulate(plus, zero),
-		product: cumulate(times, one),
+	var createOperationSystem = (serial, plus, times, zero, one) => freeze({
+		sum: serial(plus, zero),
+		product: serial(times, one),
 		__proto__: freeze({
+			serial: serial,
 			plus: plus, times: times,
 			zero: zero, one: one,
 			__proto__: null
