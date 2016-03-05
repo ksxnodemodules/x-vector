@@ -25,7 +25,7 @@ var a = new vspace.Vector(12, 34, 56);
 var b = new vspace.Vector(13, 24, 35);
 var c = new vspace.Vector(14, 15, 16);
 console.log({
-	'a + b + c': vspace.add(a, b, c),
+	'a + b + c': vspace.sum(a, b, c),
 	'a · b': vspace.dot(a, b),
 	'12 * a': vspace.multiply(a, 12)
 });
