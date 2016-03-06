@@ -4,11 +4,16 @@
 
 	var freeze = Object.freeze;
 	var define = Object.defineProperty;
-	var cumulate = require('./utils/cumulate.js');
+
+	class VectorSpace extends VectorSpaceSuper {
+		constructor(VectorSuper, dimensions, operations) {
+			super(VectorSpaceSuper, typeof dimensions === 'number' ? new Dimensions(dimensions) : dimensions, operations);
+		}
+	}
 
 	module.exports = class extends VectorSpace {};
 
-	function VectorSpace(VectorSuper, dimensions, operations) {
+	function VectorSpaceSuper(VectorSuper, dimensions, operations) {
 
 		var plus = operations.plus;
 		var times = operations.times;
@@ -20,8 +25,8 @@
 		class Vector extends VectorSuper {
 
 			add(vector) {
-				for (let i = 0; i != dimensions; ++i) {
-					this.set(i, plus(this.get(i), vector.get(i)));
+				for (let pos = dimensions.begin(); pos.keepgoing(); pos.forward()) {
+					this.set(pos, plus(this.get(pos), vector.get(pos)));
 				}
 				return this;
 			}
@@ -31,8 +36,8 @@
 			}
 
 			multiply(scalar) {
-				for (let i = 0; i !== dimensions; ++i) {
-					this.set(i, times(this.get(i), scalar));
+				for (let pos = dimensions.begin(); pos.keepgoing(); pos.forward()) {
+					this.set(pos, times(this.get(pos), scalar));
 				}
 				return this;
 			}
@@ -70,8 +75,8 @@
 
 			static dot2v(lvec, rvec) {
 				var result = zero;
-				for (let i = 0; finite(result) && i !== dimensions; ++i) {
-					result = plus(result, times(lvec.get(i), rvec.get(i)));
+				for (let pos = dimensions.begin(); finite(result) && pos.keepgoing(); pos.forward()) {
+					result = plus(result, times(lvec.get(pos), rvec.get(pos)));
 				}
 				return result;
 			}
@@ -82,11 +87,11 @@
 
 			static dot(...vlist) {
 				var sum = zero;
-				for (let i = 0; finite(sum) && i !== dimensions; ++i) {
+				for (let pos = dimensions.begin(); finite(sum) && pos.keepgoing(); pos.forward()) {
 					let product = one;
 					let length = vlist.length;
-					for (let j = 0; nonzero(product) && j !== length; ++j) {
-						product = times(product, vlist[j].get(i));
+					for (let index = 0; nonzero(product) && index !== length; ++index) {
+						product = times(product, vlist[index].get(pos));
 					}
 					sum = plus(sum, product);
 				}
@@ -114,9 +119,22 @@
 
 		return freeze({
 			Vector: class extends Vector {},
-			__proto__: this
+			__proto__: freeze(this)
 		});
 
+	}
+
+	function Dimensions(dimensions) {
+		this.begin = () => new Iterator();
+		function Iterator() {
+			var value = 0;
+			return {
+				valueOf: () => value,
+				keepgoing: () => value !== dimensions,
+				forward: () => ++value,
+				__proto__: this
+			}
+		}
 	}
 
 })(module);
