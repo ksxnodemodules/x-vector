@@ -32,7 +32,7 @@
 
 			multiply(scalar) {
 				for (let i = 0; i !== dimensions; ++i) {
-					this.set(i, times(this.get(i), vector.get(i)));
+					this.set(i, times(this.get(i), scalar));
 				}
 				return this;
 			}
@@ -47,6 +47,11 @@
 
 			slash(vector) {
 				return Vector.slash2v(this, vector);
+			}
+
+			assign(vector) {
+				super.assign(vector);
+				return this;
 			}
 
 			static sum2v(lvec, rvec) {
@@ -86,6 +91,11 @@
 					sum = plus(sum, product);
 				}
 				return sum;
+			}
+
+			static assign(target, source) {
+				target.assign(source);
+				return this;
 			}
 
 			static clone(vector) {
