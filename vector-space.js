@@ -7,14 +7,14 @@
 	var create = Object.create;
 
 	class VectorSpace extends VectorSpaceSuper {
-		constructor(VectorSuper, dimensions, operations) {
-			super(VectorSuper, typeof dimensions === 'number' ? new Dimensions(dimensions) : dimensions, operations);
+		constructor(VectorSuper, iteration, operations) {
+			super(VectorSuper, typeof iteration === 'function' ? iteration : createIteratorCreator(iteration), operations);
 		}
 	}
 
 	module.exports = class extends VectorSpace {};
 
-	function VectorSpaceSuper(VectorSuper, dimensions, operations) {
+	function VectorSpaceSuper(VectorSuper, createIterator, operations) {
 
 		var plus = operations.plus;
 		var times = operations.times;
@@ -26,7 +26,7 @@
 		class Vector extends VectorSuper {
 
 			add(vector) {
-				for (let pos = dimensions.begin(); pos.keepgoing(); pos.forward()) {
+				for (let pos = createIterator(); pos.keepgoing(); pos.forward()) {
 					this.set(pos, plus(this.get(pos), vector.get(pos)));
 				}
 				return this;
@@ -37,7 +37,7 @@
 			}
 
 			multiply(scalar) {
-				for (let pos = dimensions.begin(); pos.keepgoing(); pos.forward()) {
+				for (let pos = createIterator(); pos.keepgoing(); pos.forward()) {
 					this.set(pos, times(this.get(pos), scalar));
 				}
 				return this;
@@ -76,7 +76,7 @@
 
 			static dot2v(lvec, rvec) {
 				var result = zero;
-				for (let pos = dimensions.begin(); finite(result) && pos.keepgoing(); pos.forward()) {
+				for (let pos = createIterator(); finite(result) && pos.keepgoing(); pos.forward()) {
 					result = plus(result, times(lvec.get(pos), rvec.get(pos)));
 				}
 				return result;
@@ -88,7 +88,7 @@
 
 			static dot(...vlist) {
 				var sum = zero;
-				for (let pos = dimensions.begin(); finite(sum) && pos.keepgoing(); pos.forward()) {
+				for (let pos = createIterator(); finite(sum) && pos.keepgoing(); pos.forward()) {
 					let product = one;
 					let length = vlist.length;
 					for (let index = 0; nonzero(product) && index !== length; ++index) {
@@ -125,9 +125,8 @@
 
 	}
 
-	function Dimensions(dimensions) {
-		this.begin = () => new Iterator();
-		Iterator.prototype = create(null);
+	function createIteratorCreator(dimensions) {
+		return () => new Iterator();
 		function Iterator() {
 			var value = 0;
 			return create({
