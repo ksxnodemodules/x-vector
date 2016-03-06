@@ -15,6 +15,7 @@ class Float64Vector extends Float64Array {
 	constructor(...args) {super(DIMENSIONS); Object.assign(this, args);}
 	get(position) {return this[position]}
 	set(position, value) {this[position] = value}
+	assign(vector) {Object.assign(this, vector)}
 };
 var Vector = new xvec.VectorSpace(Float64Vector, DIMENSIONS, xvec.NUMBER_OPERATIONS).Vector;
 var a = new Vector(12, 34, 56);
