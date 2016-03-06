@@ -7,7 +7,7 @@
 
 	class VectorSpace extends VectorSpaceSuper {
 		constructor(VectorSuper, dimensions, operations) {
-			super(VectorSpaceSuper, typeof dimensions === 'number' ? new Dimensions(dimensions) : dimensions, operations);
+			super(VectorSuper, typeof dimensions === 'number' ? new Dimensions(dimensions) : dimensions, operations);
 		}
 	}
 
@@ -130,6 +130,7 @@
 			var value = 0;
 			return {
 				valueOf: () => value,
+				toString: () => String(value),
 				keepgoing: () => value !== dimensions,
 				forward: () => ++value,
 				__proto__: this
