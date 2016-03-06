@@ -1,10 +1,6 @@
 
 # x-vector
 
-## Comming soon...
-
-Working in process.
-
 ## Requirements
 
 Node v5.0.0 or later
