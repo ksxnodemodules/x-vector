@@ -4,6 +4,7 @@
 
 	var freeze = Object.freeze;
 	var define = Object.defineProperty;
+	var create = Object.create;
 
 	class VectorSpace extends VectorSpaceSuper {
 		constructor(VectorSuper, dimensions, operations) {
@@ -126,15 +127,16 @@
 
 	function Dimensions(dimensions) {
 		this.begin = () => new Iterator();
+		Iterator.prototype = create(null);
 		function Iterator() {
 			var value = 0;
-			return {
+			return create({
 				valueOf: () => value,
 				toString: () => String(value),
 				keepgoing: () => value !== dimensions,
 				forward: () => ++value,
 				__proto__: this
-			}
+			});
 		}
 	}
 
