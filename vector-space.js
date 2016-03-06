@@ -13,8 +13,8 @@
 		var times = operations.times;
 		var zero = operations.zero;
 		var one = operations.one;
-		var inf = operations.inf;
-		var iinf = operations.iinf;
+		var finite = operations.finite;
+		var nonzero = operations.nonzero;
 
 		class Vector extends VectorSuper {
 
@@ -41,10 +41,20 @@
 			}
 
 			dot1v(vector) {
-				// continue from here...
+				return Vector.dot2v(this, vector);
 			}
 
-			dot(...vlist) {}
+			static dot2v(lvec, rvec) {
+				var result = zero;
+				for (let i = 0; finite(result) && i != dimensions; ++i) {
+					result = plus(result, times(lvec.get(i), rvec.get(i)));
+				}
+				return result;
+			}
+
+			static dot(...vlist) {
+				var result = zero;
+			}
 
 			static create(...args) {
 				return new this(...args);

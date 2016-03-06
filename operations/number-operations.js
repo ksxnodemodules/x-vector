@@ -4,6 +4,6 @@ module.exports = Object.freeze({
 	'times': (a, b) => a * b,
 	'zero': 0,
 	'one': 1,
-	'inf': (number) => !isFinite(number),
-	'iinf': (number) => !(number && isFinite(number))
+	'finite': isFinite,
+	'nonzero': (number) => number && isFinite(number)
 });
