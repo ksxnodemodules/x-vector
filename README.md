@@ -20,13 +20,13 @@ class Float64Vector extends Float64Array {
 	get(position) {return this[position]}
 	set(position, value) {this[position] = value}
 };
-var vspace = new xvec.VectorSpace(Float64Vector, DIMENSIONS, xvec.NUMBER_OPERATIONS);
-var a = new vspace.Vector(12, 34, 56);
-var b = new vspace.Vector(13, 24, 35);
-var c = new vspace.Vector(14, 15, 16);
+var Vector = new xvec.VectorSpace(Float64Vector, DIMENSIONS, xvec.NUMBER_OPERATIONS).Vector;
+var a = new Vector(12, 34, 56);
+var b = new Vector(13, 24, 35);
+var c = new Vector(14, 15, 16);
 console.log({
-	'a + b + c': vspace.sum(a, b, c),
-	'a · b': vspace.dot(a, b),
-	'12 * a': vspace.multiply(a, 12)
+	'a + b + c': Vector.sum(a, b, c),
+	'a · b': Vector.dot(a, b),
+	'12 * a': Vector.multiply(a, 12)
 });
 ```

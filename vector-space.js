@@ -102,9 +102,6 @@
 
 		}
 
-		Object.assign(this, Vector);
-		define(this, 'create', {value: (...args) => new this.Vector(...args)});
-
 		return freeze({
 			Vector: class extends Vector {},
 			__proto__: this
