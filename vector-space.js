@@ -3,6 +3,7 @@
 	'use strict';
 
 	var freeze = Object.freeze;
+	var define = Object.defineProperty;
 	var cumulate = require('./utils/cumulate.js');
 
 	module.exports = class extends VectorSpace {};
@@ -58,10 +59,6 @@
 				return result;
 			}
 
-			static inverse(vector) {
-				return vector.clone().inverse();
-			}
-
 			static multiply(vector, scalar) {
 				return new this().assign(vector).multiply(scalar);
 			}
@@ -91,11 +88,22 @@
 				return sum;
 			}
 
+			static clone(vector) {
+				return vector.clone();
+			}
+
+			static inverse(vector) {
+				return vector.clone().inverse();
+			}
+
 			static create(...args) {
 				return new this(...args);
 			}
 
 		}
+
+		Object.assign(this, Vector);
+		define(this, 'create', {value: (...args) => new this.Vector(...args)});
 
 		return freeze({
 			Vector: class extends Vector {},

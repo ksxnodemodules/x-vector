@@ -16,7 +16,7 @@ Node v5.0.0 or later
 var xvec = require('x-vector');
 const DIMENSIONS = 3;
 class Float64Vector extends Float64Array {
-	constructor(...args) {super(DIMENSIONS); Object.assign(args);}
+	constructor(...args) {super(DIMENSIONS); Object.assign(this, args);}
 	get(position) {return this[position]}
 	set(position, value) {this[position] = value}
 };
