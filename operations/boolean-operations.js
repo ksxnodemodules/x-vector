@@ -1,8 +1,9 @@
 
-module.exports = require('./create-operation-system.js')(
-	(a, b) => a || b,
-	(a, b) => a && b,
-	false, true,
-	(boolean) => boolean,
-	(boolean) => !boolean
-);
+module.exports = Object.freeze({
+	'plus': (a, b) => a || b,
+	'times': (a, b) => a && b,
+	'zero': false,
+	'one': true,
+	'inf': (boolean) => boolean,
+	'iinf': (boolean) => !boolean
+});
