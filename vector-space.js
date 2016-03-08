@@ -18,7 +18,9 @@
 		typeof value === 'function' ? value : () => value;
 
 	var _getcmpf = (value) =>
-		typeof value === 'function' ? value : (operand) => value !== operand;
+		typeof value === 'function' ? value : RETURN_TRUE;
+
+	RETURN_TRUE = () => true;
 
 	function VectorSpaceSuper(VectorSuper, createIterator, operations) {
 
