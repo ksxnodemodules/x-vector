@@ -14,14 +14,20 @@
 
 	module.exports = class extends VectorSpace {};
 
+	var _getretf = (value) =>
+		typeof value === 'function' ? value : () => value;
+
+	var _getcmpf = (value) =>
+		typeof value === 'function' ? value : (operand) => value !== operand;
+
 	function VectorSpaceSuper(VectorSuper, createIterator, operations) {
 
 		var plus = operations.plus;
 		var times = operations.times;
-		var zero = operations.zero;
-		var one = operations.one;
-		var finite = operations.finite;
-		var nonzero = operations.nonzero;
+		var zero = _getretf(operations.zero);
+		var one = _getretf(operations.one);
+		var finite = _getcmpf(operations.finite);
+		var nonzero = _getcmpf(operations.nonzero);
 
 		class Vector extends VectorSuper {
 
@@ -61,11 +67,11 @@
 			}
 
 			static sum2v(lvec, rvec) {
-				return new this().fill(zero).add(lvec).add(rvec);
+				return new this().fill(zero()).add(lvec).add(rvec);
 			}
 
 			static sum(...vlist) {
-				var result = new this().fill(zero);
+				var result = new this().fill(zero());
 				vlist.forEach((vector) => result.add(vector));
 				return result;
 			}
@@ -75,7 +81,7 @@
 			}
 
 			static dot2v(lvec, rvec) {
-				var result = zero;
+				var result = zero();
 				for (let pos = createIterator(); finite(result) && pos.keepgoing(); pos.forward()) {
 					result = plus(result, times(lvec.get(pos), rvec.get(pos)));
 				}
@@ -87,9 +93,9 @@
 			}
 
 			static dot(...vlist) {
-				var sum = zero;
+				var sum = zero();
 				for (let pos = createIterator(); finite(sum) && pos.keepgoing(); pos.forward()) {
-					let product = one;
+					let product = one();
 					let length = vlist.length;
 					for (let index = 0; nonzero(product) && index !== length; ++index) {
 						product = times(product, vlist[index].get(pos));
