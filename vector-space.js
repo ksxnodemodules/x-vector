@@ -20,7 +20,7 @@
 	var _getcmpf = (value) =>
 		typeof value === 'function' ? value : RETURN_TRUE;
 
-	RETURN_TRUE = () => true;
+	const RETURN_TRUE = () => true;
 
 	function VectorSpaceSuper(VectorSuper, createIterator, operations) {
 
