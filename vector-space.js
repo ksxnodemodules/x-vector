@@ -14,14 +14,20 @@
 
 	module.exports = class extends VectorSpace {};
 
+	var _getretf = (value) =>
+		typeof value === 'function' ? value : () => value;
+
+	var _getcmpf = (value) =>
+		typeof value === 'function' ? (operand) => value !== operand
+
 	function VectorSpaceSuper(VectorSuper, createIterator, operations) {
 
 		var plus = operations.plus;
 		var times = operations.times;
-		var zero = operations.zero;
-		var one = operations.one;
-		var finite = operations.finite;
-		var nonzero = operations.nonzero;
+		var zero = _getretf(operations.zero);
+		var one = _getretf(operations.one);
+		var finite = _getcmpf(operations.finite);
+		var nonzero = _getcmpf(operations.nonzero);
 
 		class Vector extends VectorSuper {
 
