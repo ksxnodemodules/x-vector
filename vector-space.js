@@ -24,8 +24,7 @@
 
 	function VectorSpaceSuper(VectorSuper, createIterator, operations) {
 
-		var plus = operations.plus;
-		var times = operations.times;
+		var {plus, times} = operations;
 		var zero = _getretf(operations.zero);
 		var one = _getretf(operations.one);
 		var finite = _getcmpf(operations.finite);
