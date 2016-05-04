@@ -13,7 +13,7 @@
 		"url": "git+https://github.com/ksxnodemodules/x-vector.git"
 	},
 	"engines": {
-		"node": ">=5.0.0"
+		"node": ">=6.0.0"
 	},
 	"dependencies": {
 		"simple-function-utils": ">=2.1.2 <3.0.0"
