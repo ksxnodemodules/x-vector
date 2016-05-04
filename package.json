@@ -2,7 +2,7 @@
 {
 	"name": "x-vector",
 	"description": "Extensible mathematical vector-space utilities",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"author": "Hoàng Văn Khải <hvksmr1996@gmail.com>",
 	"contributors": [
 		"Hoàng Văn Khải <hvksmr1996@gmail.com>"
